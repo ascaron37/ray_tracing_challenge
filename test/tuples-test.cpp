@@ -1,3 +1,4 @@
+#include <cmath>
 #include "gtest/gtest.h"
 #include "tuple.h"
 
@@ -65,4 +66,73 @@ TEST(tuplesTest, subtractingTwoVectors) {
 TEST(tuplesTest, negatingTuple) {
     Tuple a(1.0, -2.0, 3.0, -4.0);
     ASSERT_EQ(-a, Tuple(-1.0, 2.0, -3.0, 4.0));
+}
+
+TEST(tuplesTest, mulTupleByScalar) {
+    Tuple a(1.0, -2.0, 3.0, -4.0);
+    ASSERT_EQ(a * 3.5, Tuple(3.5, -7.0, 10.5, -14.0));
+}
+
+TEST(tuplesTest, mulTupleByFraction) {
+    Tuple a(1.0, -2.0, 3.0, -4.0);
+    ASSERT_EQ(a * 0.5, Tuple(0.5, -1.0, 1.5, -2.0));
+}
+
+TEST(tuplesTest, divTupleByScalar) {
+    Tuple a(1.0, -2.0, 3.0, -4.0);
+    ASSERT_EQ(a / 2.0, Tuple(0.5, -1.0, 1.5, -2.0));
+}
+
+TEST(tuplesTest, magnitudeVector100) {
+    Vector v(1.0, 0.0, 0.0);
+    EXPECT_DOUBLE_EQ(v.magnitude(), 1.0);
+}
+
+TEST(tuplesTest, magnitudeVector010) {
+    Vector v(0.0, 1.0, 0.0);
+    EXPECT_DOUBLE_EQ(v.magnitude(), 1.0);
+}
+
+TEST(tuplesTest, magnitudeVector001) {
+    Vector v(0.0, 0.0, 1.0);
+    EXPECT_DOUBLE_EQ(v.magnitude(), 1.0);
+}
+
+TEST(tuplesTest, magnitudeVector123) {
+    Vector v(1.0, 2.0, 3.0);
+    EXPECT_DOUBLE_EQ(v.magnitude(), sqrt(14.0));
+}
+
+TEST(tuplesTest, magnitudeVectorNeg123) {
+    Vector v(-1.0, -2.0, -3.0);
+    EXPECT_DOUBLE_EQ(v.magnitude(), sqrt(14.0));
+}
+
+TEST(tuplesTest, normalizingVector400) {
+    Vector v(4.0, 0.0, 0.0);
+    EXPECT_EQ(v.normalize(), Vector(1.0, 0.0, 0.0));
+}
+
+TEST(tuplesTest, normalizingVector123) {
+    Vector v(1.0, 2.0, 3.0);
+    EXPECT_EQ(v.normalize(), Vector(1.0/sqrt(14.0), 2.0/sqrt(14.0), 3.0/sqrt(14.0)));
+}
+
+TEST(tuplesTest, magnitudeNormalizedVector) {
+    Vector v(1.0, 2.0, 3.0);
+    Vector norm{v.normalize()};
+    EXPECT_DOUBLE_EQ(norm.magnitude(), 1.0);
+}
+
+TEST(tuplesTest, dotProduct) {
+    Vector v1(1.0, 2.0, 3.0);
+    Vector v2(2.0, 3.0, 4.0);
+    EXPECT_DOUBLE_EQ(v1.dot(v2), 20.0);
+}
+
+TEST(tuplesTest, crossProduct) {
+    Vector v1(1.0, 2.0, 3.0);
+    Vector v2(2.0, 3.0, 4.0);
+    EXPECT_EQ(v1.cross(v2), Vector(-1.0, 2.0, -1.0));
+    EXPECT_EQ(v2.cross(v1), Vector(1.0, -2.0, 1.0));
 }

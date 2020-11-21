@@ -1,3 +1,4 @@
+#include <cmath>
 #include "tuple.h"
 
 inline bool equal(double a, double b) {
@@ -38,6 +39,26 @@ Tuple Tuple::operator-() const {
     return t;
 }
 
+Tuple Tuple::operator*(const double a) const {
+    Tuple t;
+    t.x = this->x * a;
+    t.y = this->y * a;
+    t.z = this->z * a;
+    t.w = this->w * a;
+    return t;
+}
+
+Tuple Tuple::operator/(const double a) const {
+    Tuple t;
+    if (a != 0.0) {
+        t.x = this->x / a;
+        t.y = this->y / a;
+        t.z = this->z / a;
+        t.w = this->w / a;
+    }
+    return t;
+}
+
 bool Tuple::isPoint() const {
     return equal(w, 1.0);
 }
@@ -46,8 +67,30 @@ bool Tuple::isVector() const {
     return equal(w, 0.0);
 }
 
-Point::Point(double x, double y, double z): Tuple{x, y, z, 1.0} {
+double Vector::magnitude() const {
+    return sqrt(pow(x, 2.0) + pow(y, 2.0) + pow(z, 2.0));
 }
 
-Vector::Vector(double x, double y, double z): Tuple{x, y, z, 0.0} {
+Vector Vector::normalize() const {
+    Vector v;
+    if (magnitude() != 0.0) {
+        v.x = x / magnitude();
+        v.y = y / magnitude();
+        v.z = z / magnitude();
+        v.w = w / magnitude();
+    }
+    return v;
+}
+
+double Vector::dot(const Vector& a) const {
+    double d = x*a.x + y*a.y + z*a.z;
+    return d;
+}
+
+Vector Vector::cross(const Vector& a) const {
+    Vector v;
+    v.x = y*a.z - z*a.y;
+    v.y = z*a.x - x*a.z;
+    v.z = x*a.y - y*a.x;
+    return v;
 }
