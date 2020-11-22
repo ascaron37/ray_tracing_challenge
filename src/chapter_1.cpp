@@ -14,7 +14,7 @@ void chapter_1::execute() {
     Environment env{Vector(0.0, -0.1, 0.0), Vector(-0.01, 0.0, 0.0)};
     for (int i=1;;i++) {
         proj = tick(env, proj);
-        std::cout << "Tick#" << i << " Position: " << proj.position.getX() << " " << proj.position.getY() << " " << proj.position.getZ() << "\n";
-        if (proj.position.getY() <= 0.0) break;
+        std::cout << "Tick#" << i << " Position: " << proj.position.X() << " " << proj.position.Y() << " " << proj.position.Z() << "\n";
+        if (proj.position.Y() <= 0.0) break;
     }
 }
