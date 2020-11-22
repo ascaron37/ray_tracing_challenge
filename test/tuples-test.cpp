@@ -2,29 +2,12 @@
 #include "gtest/gtest.h"
 #include "tuple.h"
 
-// TODO:
-// check classes
-// check initializations
-// check suffix for floating point numbers
-// check floating point tests in gtest
-TEST(tuplesTest, tupleIsAPoint) {
+TEST(tuplesTest, tupleInit) {
     Tuple a(4.3, -4.2, 3.1, 1.0);
-    EXPECT_DOUBLE_EQ(a.getX(), 4.3);
-    EXPECT_DOUBLE_EQ(a.getY(), -4.2);
-    EXPECT_DOUBLE_EQ(a.getZ(), 3.1);
-    EXPECT_NEAR(a.getW(), 1.0, 0.0001);
-    EXPECT_TRUE(a.isPoint());
-    ASSERT_FALSE(a.isVector());
-}
-
-TEST(tuplesTest, tupleIsAVector) {
-    Tuple a(4.3, -4.2, 3.1, 0.0);
-    EXPECT_DOUBLE_EQ(a.getX(), 4.3);
-    EXPECT_DOUBLE_EQ(a.getY(), -4.2);
-    EXPECT_DOUBLE_EQ(a.getZ(), 3.1);
-    EXPECT_NEAR(a.getW(), 0.0, 0.0001);
-    EXPECT_FALSE(a.isPoint());
-    ASSERT_TRUE(a.isVector());
+    EXPECT_DOUBLE_EQ(a[0], 4.3);
+    EXPECT_DOUBLE_EQ(a[1], -4.2);
+    EXPECT_DOUBLE_EQ(a[2], 3.1);
+    EXPECT_DOUBLE_EQ(a[3], 1.0);
 }
 
 TEST(tuplesTest, pointIsATuple) {
