@@ -59,3 +59,29 @@ TEST(canvasTest, contstructingPPMPixelData) {
     std::getline(stream, line);
     EXPECT_EQ(line, std::string("0 0 0 0 0 0 0 0 0 0 0 0 0 0 255"));
 }
+
+TEST(canvasTest, splittingLongLines) {
+    Canvas c(10, 2, Color(1, 0.8, 0.6));
+
+    std::istringstream stream(c.toPPM());
+    std::string line;
+    // skip header
+    std::getline(stream, line);
+    std::getline(stream, line);
+    std::getline(stream, line);
+    // first pixel line
+    std::getline(stream, line);
+    EXPECT_EQ(line, std::string("255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204"));
+    std::getline(stream, line);
+    EXPECT_EQ(line, std::string("153 255 204 153 255 204 153 255 204 153 255 204 153"));
+    std::getline(stream, line);
+    EXPECT_EQ(line, std::string("255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204"));
+    std::getline(stream, line);
+    EXPECT_EQ(line, std::string("153 255 204 153 255 204 153 255 204 153 255 204 153"));
+}
+
+TEST(canvasTest, ppmTerminatedByNewline) {
+    Canvas c(5, 3);
+    std::string ppm{c.toPPM()};
+    EXPECT_EQ(ppm.at(ppm.length() - 1), '\n');
+}

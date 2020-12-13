@@ -43,6 +43,7 @@ std::string Canvas::pixelRowToString(const std::vector<Color>& row) const {
         rowString += pixelToString(pixel) + " ";
     }
     rowString.at(rowString.length() - 1) = '\n';
+    rowString = postprocessLineLength(rowString);
 
     return rowString;
 }
@@ -64,4 +65,13 @@ std::string Canvas::convertColorToPPM(double col) const {
         ppmColor = 0;
 
     return std::to_string(ppmColor);
+}
+
+std::string Canvas::postprocessLineLength(std::string line) const {
+    int pos;
+    for (int i=1; maxLineLength * i < line.length(); i++) {
+        pos = line.rfind(" ", maxLineLength * i);
+        line.replace(pos, 1, "\n");
+    }
+    return line;
 }

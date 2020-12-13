@@ -6,6 +6,7 @@
 
 class Canvas {
 public:
+    Canvas(int width, int height, Color col): grid(height, std::vector<Color> (width, col)) { }
     Canvas(int width, int height): grid(height, std::vector<Color> (width)) { }
     auto width() const { return grid[0].size(); }
     auto height() const { return grid.size(); }
@@ -20,8 +21,10 @@ private:
     std::string pixelRowToString(const std::vector<Color>& row) const;
     std::string createPixelMap() const;
     std::string convertColorToPPM(double color) const;
+    std::string postprocessLineLength(std::string line) const;
 protected:
     int maxPPMColor{255};
+    int maxLineLength{70};
     std::vector<std::vector<Color>> grid;
 };
 
