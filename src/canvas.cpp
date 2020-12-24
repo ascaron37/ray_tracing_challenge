@@ -18,6 +18,11 @@ std::string Canvas::createPPMHeader() const {
     return ppm;
 }
 
+void Canvas::writePixel(int x, int y, Color c) {
+    if (x >= 0 && x < width() && y >= 0 && y < height())
+        grid[y][x] = c;
+}
+
 std::string Canvas::pixelToString(int x, int y) const {
     Color c{getColor(x, y)};
 

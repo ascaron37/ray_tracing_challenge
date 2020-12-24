@@ -11,7 +11,7 @@ public:
     auto width() const { return grid[0].size(); }
     auto height() const { return grid.size(); }
     Color getColor(int x, int y) const { return grid[y][x]; }
-    void writePixel(int x, int y, Color col) { grid[y][x] = col; }
+    void writePixel(int x, int y, Color col);
     std::string toPPM() const;
 private:
     std::string createPPMHeader() const;

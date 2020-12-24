@@ -1,7 +1,7 @@
 #include <iostream>
-#include "chapter_1.h"
+#include "chapter_2.h"
 
 int main() {
-    chapter_1::execute();
+    chapter_2::execute();
     return 0;
 }
