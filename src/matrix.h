@@ -15,6 +15,11 @@ public:
     bool operator!=(const Matrix& m) const;
     Matrix operator*(const Matrix& m) const;
     Tuple operator*(const Tuple& t) const;
+    Matrix transpose() const;
+    double determinant() const;
+    Matrix submatrix(int row, int column) const;
+    double minor(int row, int column) const;
+    double cofactor(int row, int column) const;
     std::size_t rows() const;
     std::size_t columns() const;
     static Matrix const createIdentity(int const dim) {

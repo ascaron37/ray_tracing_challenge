@@ -39,6 +39,45 @@ Tuple Matrix::operator*(const Tuple& t) const {
     return res;
 }
 
+// TODO: assert that it is a quadratic matrix
+Matrix Matrix::transpose() const {
+    Matrix m(rows(), rows());
+    for (int i=0; i < rows(); i++)
+        for (int j=0; j < rows(); j++)
+            m[i][j] = mat[j][i];
+    return m;
+}
+
+double Matrix::determinant() const {
+    if (rows() == 2)
+        return mat[0][0]*mat[1][1] - mat[0][1]*mat[1][0];
+    return 0.0;
+}
+
+Matrix Matrix::submatrix(int row, int column) const {
+    assert(row >= 0 && row < rows());
+    assert(column >= 0 && column < columns());
+    Matrix m(rows()-1, columns()-1);
+    for (int i=0; i < m.rows(); i++) {
+        for (int j=0; j < m.columns(); j++) {
+            int newRow{i < row? i: i+1};
+            int newColumn{j < column? j: j+1};
+            m[i][j] = mat[newRow][newColumn];
+        }
+    }
+    return m;
+}
+
+double Matrix::minor(int row, int column) const {
+    return submatrix(row, column).determinant();
+}
+
+double Matrix::cofactor(int row, int column) const {
+    if (row+column % 2)
+        return -minor(row, column);
+    return minor(row, column);
+}
+
 bool Matrix::sameDimensions(const Matrix& m) const {
     return m.rows() == rows() && m.columns() == columns();
 }

@@ -100,3 +100,64 @@ TEST(matrixTest, multiplicationIdentityMatrixByTuple) {
     Tuple t(1, 2, 3, 4);
     EXPECT_EQ(identity * t, t);
 }
+
+TEST(matrixTest, transposeMatrix) {
+    Matrix m{{0, 9, 3, 0},
+                {9, 8, 0, 8},
+                {1, 8, 5, 3},
+                {0, 0, 5, 8}};
+    Matrix trans{{0, 9, 1, 0},
+                {9, 8, 8, 0},
+                {3, 0, 5, 5},
+                {0, 8, 3, 8}};
+    EXPECT_EQ(m.transpose(), trans);
+}
+
+TEST(matrixTest, transposeIdentityMatrix) {
+    Matrix m{Matrix::createIdentity(4)};
+    EXPECT_EQ(m.transpose(), m);
+}
+
+TEST(matrixTest, determinantMatrix2x2) {
+    Matrix m{{1, 5},
+            {-3, 2}};
+    EXPECT_DOUBLE_EQ(m.determinant(), 17.0);
+}
+
+TEST(matrixTest, submatrix3x3to2x2) {
+    Matrix m{{1, 5, 0},
+            {-3, 2, 7},
+            {0, 6, -3}};
+    Matrix subm{{-3, 2},
+                {0, 6}};
+    EXPECT_EQ(m.submatrix(0, 2), subm);
+}
+
+TEST(matrixTest, submatrix4x4to3x3) {
+    Matrix m{{-6, 1, 1, 6},
+            {-8, 5, 8, 6},
+            {-1, 0, 8, 2},
+            {-7, 1, -1, 1}};
+    Matrix subm{{-6, 1, 6},
+                {-8, 8, 6},
+                {-7, -1, 1}};
+    EXPECT_EQ(m.submatrix(2, 1), subm);
+}
+
+TEST(matrixTest, minorOfA3x3Matrix) {
+    Matrix m{{3, 5, 0},
+            {2, -1, -7},
+            {6, -1, 5}};
+    EXPECT_DOUBLE_EQ(m.submatrix(1, 0).determinant(), 25.0);
+    EXPECT_DOUBLE_EQ(m.minor(1, 0), 25.0);
+}
+
+TEST(matrixTest, cofactorsOfA3x3Matrix) {
+    Matrix m{{3, 5, 0},
+            {2, -1, -7},
+            {6, -1, 5}};
+    EXPECT_DOUBLE_EQ(m.minor(0, 0), -12.0);
+    EXPECT_DOUBLE_EQ(m.cofactor(0, 0), -12.0);
+    EXPECT_DOUBLE_EQ(m.minor(1, 0), 25.0);
+    EXPECT_DOUBLE_EQ(m.cofactor(1, 0), -25.0);
+}
