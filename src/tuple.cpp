@@ -1,9 +1,6 @@
 #include <cmath>
 #include "tuple.h"
-
-inline bool equal(double a, double b) {
-    return fabs(a - b) < 0.000001;
-}
+#include "utils.h"
 
 bool Tuple::operator==(const Tuple& a) const {
     bool eq = true;
